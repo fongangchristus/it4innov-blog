@@ -1,0 +1,105 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-auteur-heading" jhiTranslate="blogApp.auteur.home.createOrEditLabel">Create or edit a Auteur</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="blogApp.auteur.login" for="field_login">Login</label>
+                    <input type="text" class="form-control" name="login" id="field_login"
+                           formControlName="login"/>
+                    <div *ngIf="editForm.get('login')!.invalid && (editForm.get('login')!.dirty || editForm.get('login')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('login')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="blogApp.auteur.firstname" for="field_firstname">Firstname</label>
+                    <input type="text" class="form-control" name="firstname" id="field_firstname"
+                           formControlName="firstname"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="blogApp.auteur.password" for="field_password">Password</label>
+                    <input type="text" class="form-control" name="password" id="field_password"
+                           formControlName="password"/>
+                    <div *ngIf="editForm.get('password')!.invalid && (editForm.get('password')!.dirty || editForm.get('password')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('password')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="blogApp.auteur.profile" for="field_profile">Profile</label>
+                    <div>
+                        <div *ngIf="editForm.get('profile')!.value" class="form-text text-danger clearfix">
+                            <a class="pull-left" (click)="openFile(editForm.get('profileContentType')!.value, editForm.get('profile')!.value)" jhiTranslate="entity.action.open">open</a><br>
+                            <span class="pull-left">{{ editForm.get('profileContentType')!.value }}, {{ byteSize(editForm.get('profile')!.value) }}</span>
+                            <button type="button" (click)="editForm.patchValue({profile: null});editForm.patchValue({profileContentType: null});"
+                                    class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon icon="times"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_profile" (change)="setFileData($event, 'profile', false)" jhiTranslate="entity.action.addblob"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="profile" id="field_profile"
+                           formControlName="profile"/>
+                    <input type="hidden" class="form-control" name="profileContentType" id="field_profileContentType"
+                           formControlName="profileContentType" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="blogApp.auteur.tweeter" for="field_tweeter">Tweeter</label>
+                    <input type="text" class="form-control" name="tweeter" id="field_tweeter"
+                           formControlName="tweeter"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="blogApp.auteur.linkedin" for="field_linkedin">Linkedin</label>
+                    <input type="text" class="form-control" name="linkedin" id="field_linkedin"
+                           formControlName="linkedin"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="blogApp.auteur.facebook" for="field_facebook">Facebook</label>
+                    <input type="text" class="form-control" name="facebook" id="field_facebook"
+                           formControlName="facebook"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="blogApp.auteur.description" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                           formControlName="description"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="blogApp.auteur.slogan" for="field_slogan">Slogan</label>
+                    <input type="text" class="form-control" name="slogan" id="field_slogan"
+                           formControlName="slogan"/>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

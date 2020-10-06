@@ -1,0 +1,65 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="article">
+            <h2><span jhiTranslate="blogApp.article.detail.title">Article</span> {{ article.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="blogApp.article.libele">Libele</span></dt>
+                <dd>
+                    <span>{{ article.libele }}</span>
+                </dd>
+                <dt><span jhiTranslate="blogApp.article.description">Description</span></dt>
+                <dd>
+                    <span>{{ article.description }}</span>
+                </dd>
+                <dt><span jhiTranslate="blogApp.article.couverture">Couverture</span></dt>
+                <dd>
+                    <div *ngIf="article.couverture">
+                        <a (click)="openFile(article.couvertureContentType, article.couverture)" jhiTranslate="entity.action.open">open</a>
+                        {{ article.couvertureContentType }}, {{ byteSize(article.couverture) }}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="blogApp.article.dateCreation">Date Creation</span></dt>
+                <dd>
+                    <span>{{ article.dateCreation }}</span>
+                </dd>
+                <dt><span jhiTranslate="blogApp.article.publier">Publier</span></dt>
+                <dd>
+                    <span>{{ article.publier }}</span>
+                </dd>
+                <dt><span jhiTranslate="blogApp.article.docMDPath">Doc MD Path</span></dt>
+                <dd>
+                    <span>{{ article.docMDPath }}</span>
+                </dd>
+                <dt><span jhiTranslate="blogApp.article.categorie">Categorie</span></dt>
+                <dd>
+                    <div *ngIf="article.categorieId">
+                        <a [routerLink]="['/categorie', article.categorieId, 'view']">{{ article.categorieId }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="blogApp.article.auteur">Auteur</span></dt>
+                <dd>
+                    <div *ngIf="article.auteurId">
+                        <a [routerLink]="['/auteur', article.auteurId, 'view']">{{ article.auteurId }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/article', article.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

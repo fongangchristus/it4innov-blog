@@ -1,0 +1,90 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="blogApp.auteur.home.title">Auteurs</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-auteur" [routerLink]="['/auteur/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="blogApp.auteur.home.createLabel">
+            Create a new Auteur
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="auteurs?.length === 0">
+        <span jhiTranslate="blogApp.auteur.home.notFound">No auteurs found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="auteurs && auteurs.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="login"><span jhiTranslate="blogApp.auteur.login">Login</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="firstname"><span jhiTranslate="blogApp.auteur.firstname">Firstname</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="password"><span jhiTranslate="blogApp.auteur.password">Password</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="profile"><span jhiTranslate="blogApp.auteur.profile">Profile</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="tweeter"><span jhiTranslate="blogApp.auteur.tweeter">Tweeter</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="linkedin"><span jhiTranslate="blogApp.auteur.linkedin">Linkedin</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="facebook"><span jhiTranslate="blogApp.auteur.facebook">Facebook</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="description"><span jhiTranslate="blogApp.auteur.description">Description</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="slogan"><span jhiTranslate="blogApp.auteur.slogan">Slogan</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let auteur of auteurs ;trackBy: trackId">
+                    <td><a [routerLink]="['/auteur', auteur.id, 'view']">{{ auteur.id }}</a></td>
+                    <td>{{ auteur.login }}</td>
+                    <td>{{ auteur.firstname }}</td>
+                    <td>{{ auteur.password }}</td>
+                    <td>
+                        <a *ngIf="auteur.profile" (click)="openFile(auteur.profileContentType, auteur.profile)" jhiTranslate="entity.action.open">open</a>
+                        <span *ngIf="auteur.profile">{{ auteur.profileContentType }}, {{ byteSize(auteur.profile) }}</span>
+                    </td>
+                    <td>{{ auteur.tweeter }}</td>
+                    <td>{{ auteur.linkedin }}</td>
+                    <td>{{ auteur.facebook }}</td>
+                    <td>{{ auteur.description }}</td>
+                    <td>{{ auteur.slogan }}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/auteur', auteur.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/auteur', auteur.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(auteur)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="auteurs && auteurs.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>
