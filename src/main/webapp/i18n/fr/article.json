@@ -1,0 +1,30 @@
+{
+  "blogApp": {
+    "article": {
+      "home": {
+        "title": "Articles",
+        "createLabel": "Créer un nouveau Article",
+        "createOrEditLabel": "Créer ou éditer un Article",
+        "notFound": "Aucun Article trouvé"
+      },
+      "created": "Un nouveau Article a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Article avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Article avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Article {{ id }} ?"
+      },
+      "detail": {
+        "title": "Article"
+      },
+      "libele": "Libele",
+      "description": "Description",
+      "couverture": "Couverture",
+      "dateCreation": "Date Creation",
+      "publier": "Publier",
+      "docMDPath": "Doc MD Path",
+      "categorie": "Categorie",
+      "auteur": "Auteur",
+      "tag": "Tag"
+    }
+  }
+}

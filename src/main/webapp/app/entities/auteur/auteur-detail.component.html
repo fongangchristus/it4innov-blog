@@ -1,0 +1,65 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="auteur">
+            <h2><span jhiTranslate="blogApp.auteur.detail.title">Auteur</span> {{ auteur.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="blogApp.auteur.login">Login</span></dt>
+                <dd>
+                    <span>{{ auteur.login }}</span>
+                </dd>
+                <dt><span jhiTranslate="blogApp.auteur.firstname">Firstname</span></dt>
+                <dd>
+                    <span>{{ auteur.firstname }}</span>
+                </dd>
+                <dt><span jhiTranslate="blogApp.auteur.password">Password</span></dt>
+                <dd>
+                    <span>{{ auteur.password }}</span>
+                </dd>
+                <dt><span jhiTranslate="blogApp.auteur.profile">Profile</span></dt>
+                <dd>
+                    <div *ngIf="auteur.profile">
+                        <a (click)="openFile(auteur.profileContentType, auteur.profile)" jhiTranslate="entity.action.open">open</a>
+                        {{ auteur.profileContentType }}, {{ byteSize(auteur.profile) }}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="blogApp.auteur.tweeter">Tweeter</span></dt>
+                <dd>
+                    <span>{{ auteur.tweeter }}</span>
+                </dd>
+                <dt><span jhiTranslate="blogApp.auteur.linkedin">Linkedin</span></dt>
+                <dd>
+                    <span>{{ auteur.linkedin }}</span>
+                </dd>
+                <dt><span jhiTranslate="blogApp.auteur.facebook">Facebook</span></dt>
+                <dd>
+                    <span>{{ auteur.facebook }}</span>
+                </dd>
+                <dt><span jhiTranslate="blogApp.auteur.description">Description</span></dt>
+                <dd>
+                    <span>{{ auteur.description }}</span>
+                </dd>
+                <dt><span jhiTranslate="blogApp.auteur.slogan">Slogan</span></dt>
+                <dd>
+                    <span>{{ auteur.slogan }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/auteur', auteur.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

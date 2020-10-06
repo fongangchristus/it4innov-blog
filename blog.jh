@@ -1,0 +1,51 @@
+
+entity  Auteur {
+    login String required,
+    firstname String,
+    password String required,
+    profile Blob,
+    tweeter String,
+    linkedin String,
+    facebook String,
+    description String,
+    slogan String
+}
+
+entity Article {
+    libele String required,
+    description String,
+    couverture Blob,
+    dateCreation Instant,
+    publier Boolean required,
+    docMDPath String
+}
+
+entity Tag {
+	libele String required,
+    description String
+}
+ 
+entity Categorie {
+	libelle String required, 
+    description String
+}
+
+
+relationship OneToMany {
+	 Categorie to Article{categorie} ,
+    Auteur to Article{auteur} 
+}
+relationship ManyToMany {
+	 Tag{article(libele)} to Article{tag(libelle)} ,
+}
+
+paginate all with pagination
+
+// Use Data Transfert Objects (DTO)
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl 
+
+// set filter
+filter *
